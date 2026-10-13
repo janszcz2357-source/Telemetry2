@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Telemetry2 — Signal, Not Noise</title>
+<meta name="description" content="A showcase site with a live, animated telemetry hero. Replace the placeholder projects with your own.">
+<style>
+:root{
+  --bg:#0a0d12; --panel:#121820; --line:#232d3a;
+  --text:#e8eef5; --muted:#93a1b3; --accent:#39ff9c; --hot:#ff5c3a;
+  --maxw:1100px; --r:14px;
+  --font:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.skip{position:absolute;left:-999px;top:0;background:var(--accent);color:#000;padding:.6rem 1rem;z-index:9}
+.skip:focus{left:0}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 16px}
+header.nav{position:sticky;top:0;z-index:5;background:rgba(10,13,18,.85);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;justify-content:space-between;align-items:center;height:56px}
+.logo{font-family:var(--mono);font-weight:700;text-decoration:none;letter-spacing:.04em}
+.logo b{color:var(--accent)}
+.nav ul{display:flex;gap:1.2rem;list-style:none;padding:0;font-size:.9rem}
+.nav a{text-decoration:none;color:var(--muted)}
+.nav a:hover{color:var(--text)}
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+#sig{position:absolute;inset:0;width:100%;height:100%;opacity:.55}
+.hero .wrap{position:relative;padding-top:clamp(72px,14vw,160px);padding-bottom:clamp(72px,12vw,140px)}
+.tag{font-family:var(--mono);font-size:.8rem;color:var(--accent);letter-spacing:.14em;text-transform:uppercase}
+.tag::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent);margin-right:.6rem;animation:pulse 1.6s infinite}
+h1{font-size:clamp(2.4rem,8vw,5.6rem);line-height:1.02;letter-spacing:-.03em;margin:1rem 0;max-width:14ch}
+h1 em{font-style:normal;color:var(--accent)}
+.lede{color:var(--muted);max-width:52ch;font-size:clamp(1rem,2.4vw,1.2rem)}
+.cta{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:2rem}
+.btn{padding:.8rem 1.4rem;border-radius:999px;text-decoration:none;font-weight:600;border:1px solid var(--line);transition:transform .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn.p{background:var(--accent);color:#04120b;border-color:var(--accent)}
+section{padding:clamp(56px,9vw,110px) 0}
+h2{font-size:clamp(1.6rem,4vw,2.4rem);letter-spacing:-.02em;margin-bottom:.4rem}
+.sub{color:var(--muted);margin-bottom:2rem}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:1.4rem}
+.stat output{display:block;font-family:var(--mono);font-size:2.4rem;color:var(--accent)}
+.stat span{color:var(--muted);font-size:.9rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:1.6rem;transition:transform .25s,border-color .25s;position:relative;overflow:hidden}
+.card:hover{transform:translateY(-4px);border-color:var(--accent)}
+.card .n{font-family:var(--mono);color:var(--hot);font-size:.8rem}
+.card h3{margin:.4rem 0 .5rem}
+.card p{color:var(--muted);font-size:.95rem}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:1rem}
+.chips li{list-style:none;font-family:var(--mono);font-size:.72rem;border:1px solid var(--line);border-radius:6px;padding:2px 8px;color:var(--muted)}
+.chips{padding:0}
+footer{border-top:1px solid var(--line);padding:2rem 0;color:var(--muted);font-size:.9rem}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}
+.reveal.in{opacity:1;transform:none}
+@keyframes pulse{50%{opacity:.25}}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto}
+  .reveal{opacity:1;transform:none}
+}
+@media (max-width:560px){.nav ul{gap:.8rem}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="#top">TELEMETRY<b>2</b></a>
+    <nav aria-label="Main"><ul>
+      <li><a href="#stats">Stats</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul></nav>
+  </div>
+</header>
+
+<main id="main">
+  <div class="hero" id="top">
+    <canvas id="sig" aria-hidden="true"></canvas>
+    <div class="wrap">
+      <p class="tag">Live signal</p>
+      <h1>Signal, <em>not noise.</em></h1>
+      <p class="lede">I build things that measure, move and make sense of data. This is the showcase — a few things I'm proud of, in real time.</p>
+      <div class="cta">
+        <a class="btn p" href="#work">See the work</a>
+        <a class="btn" href="#contact">Get in touch</a>
+      </div>
+    </div>
+  </div>
+
+  <section id="stats">
+    <div class="wrap">
+      <h2 class="reveal">By the numbers</h2>
+      <p class="sub reveal">Placeholder figures — swap in your real ones.</p>
+      <div class="stats reveal">
+        <div class="stat"><output data-to="42">0</output><span>Projects shipped</span></div>
+        <div class="stat"><output data-to="9800">0</output><span>Data points / sec</span></div>
+        <div class="stat"><output data-to="99">0</output><span>% uptime</span></div>
+        <div class="stat"><output data-to="7">0</output><span>Years building</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="wrap">
+      <h2 class="reveal">Selected work</h2>
+      <p class="sub reveal">[Placeholder projects — replace with real ones.]</p>
+      <div class="grid">
+        <article class="card reveal"><span class="n">01</span><h3>Pitwall Dashboard</h3><p>Real-time streaming dashboard with sub-second latency and alerting.</p><ul class="chips"><li>TypeScript</li><li>WebSocket</li><li>Canvas</li></ul></article>
+        <article class="card reveal"><span class="n">02</span><h3>Sensor Mesh</h3><p>Low-power device network that reports home reliably, even offline.</p><ul class="chips"><li>Rust</li><li>MQTT</li><li>SQLite</li></ul></article>
+        <article class="card reveal"><span class="n">03</span><h3>Anomaly Radar</h3><p>Flags the one weird reading in a million before it becomes an incident.</p><ul class="chips"><li>Python</li><li>ML</li><li>Grafana</li></ul></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <h2 class="reveal">Let's talk</h2>
+      <p class="sub reveal">Have a project that needs signal? Say hi.</p>
+      <a class="btn p reveal" href="mailto:janszcz2357@gmail.com">janszcz2357@gmail.com</a>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">© <span id="yr"></span> Telemetry2 · Built to show off.</div></footer>
+
+<script>
+// Live waveform hero
+(function(){
+  var c=document.getElementById('sig'),x=c.getContext('2d'),t=0,w,h,dpr=Math.min(devicePixelRatio||1,2);
+  var still=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function size(){w=c.clientWidth;h=c.clientHeight;c.width=w*dpr;c.height=h*dpr;x.setTransform(dpr,0,0,dpr,0,0)}
+  function draw(){
+    x.clearRect(0,0,w,h);
+    x.strokeStyle='rgba(35,45,58,.8)';x.lineWidth=1;
+    for(var gx=0;gx<w;gx+=60){x.beginPath();x.moveTo(gx,0);x.lineTo(gx,h);x.stroke()}
+    for(var gy=0;gy<h;gy+=60){x.beginPath();x.moveTo(0,gy);x.lineTo(w,gy);x.stroke()}
+    [['#39ff9c',.5,1],['#ff5c3a',.65,1.7]].forEach(function(l,i){
+      x.beginPath();x.strokeStyle=l[0];x.lineWidth=2;
+      for(var px=0;px<=w;px+=3){
+        var y=h*l[1]+Math.sin(px*.012*l[2]+t*(1+i*.6))*h*.1+Math.sin(px*.041+t*2.3)*h*.03+Math.sin(px*.003+t*.4+i)*h*.08;
+        px?x.lineTo(px,y):x.moveTo(px,y)
+      }
+      x.stroke();
+    });
+    t+=.02;
+    if(!still)requestAnimationFrame(draw)
+  }
+  size();addEventListener('resize',function(){size();if(still)draw()});draw();
+})();
+// Reveal + count-up
+(function(){
+  var still=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function count(o){
+    var to=+o.dataset.to,s=performance.now();
+    if(still){o.textContent=to.toLocaleString();return}
+    (function f(n){var p=Math.min((n-s)/1400,1);o.textContent=Math.round(to*(1-Math.pow(1-p,3))).toLocaleString();if(p<1)requestAnimationFrame(f)})(s);
+  }
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(!e.isIntersecting)return;
+    e.target.classList.add('in');
+    e.target.querySelectorAll('output[data-to]').forEach(count);
+    io.unobserve(e.target);
+  })},{threshold:.2});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+  document.getElementById('yr').textContent=new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
